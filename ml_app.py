@@ -19,24 +19,31 @@ reg = {'region_1':1,'region_2':2,'region_3':3,'region_4':4,'region_5':5,
        'region_31':31,'region_32':32,'region_33':33,'region_34':34}
 
 attribute_info = """
-                 - Department: Sales & Marketing, Operations, Technology, Analytics, R&D, Procurement, Finance, HR, Legal
-                 - Region: region 1 - region 34
-                 - Educaiton: Below Secondary, Bachelor's, Master's & above
                  - Gender: Male and Female
-                 - Recruitment Channel: Referred, Sourcing, Others
-                 - No of Training: 1-10
-                 - Age: 10-60
-                 - Previous Year Rating: 1-5
-                 - Length of Service: 1-37 Month
-                 - Awards Won: 1. Yes, 0. No
-                 - Avg Training Score: 0-100
+                 - Age: 32-70
+                 - Education: postgraduate, primaryschool, uneducated, graduate
+                 - Current Smoker : 1 Smoke, 0 Not Smoke
+                 - CigsPerDay : Berapa puntung rokok dalam sehari (1-70)
+                 - BPMeds : 1 Yes, 0 No
+                 - PrevalentStroke : 1 Yes, 0 No
+                 - PrevalentHyp : 1 Yes, 0 No
+                 - Diabetes : 1 Yes, 0 No
+                 - TotChol : Total cholesterol (107 - 696)
+                 - SysBP : 83.5-295
+                 - DiaBP : 48-142.5
+                 - BMI : Mengukur berat badan ideal (15.54-56.8)
+                 - HearthRate : Denyut Jantung (44-143)
+                 - Glucose : Kadar Glukosa dalam tubuh (40-394)
+                 - HeartStroke : 1 Yes, 0 No
                  """
 
+# Mengambil valuenya, key dan value
 def get_value(val,my_dict):
     for key, value in my_dict.items():
         if val == key:
             return value
-        
+
+# Baca model        
 @st.cache
 def load_model(model_file):
     loaded_model = joblib.load(open(os.path.join(model_file),'rb'))
@@ -49,36 +56,41 @@ def run_ml_app():
         st.markdown(attribute_info)
 
     st.subheader("Input Your Data")
-    department = st.selectbox('Department', ["Sales & Marketing", "Operations", "Technology", "Analytics", "R&D", "Procurement", "Finance", "HR", "Legal"])
-    region = st.selectbox('Region', ['region_1','region_2','region_3','region_4','region_5', 'region_6','region_7',
-                                     'region_8','region_9','region_10','region_11','region_12',
-                                     'region_13','region_14','region_15','region_16','region_17','region_18','region_19',
-                                     'region_20','region_21','region_22','region_23','region_24','region_25','region_26',
-                                     'region_27','region_28','region_29','region_30','region_31','region_32','region_33',
-                                     'region_34'])
-    education = st.selectbox('Education', ["Below Secondary", "Bachelor's", "Master's & above"])
     gender = st.radio('Gender', ['m','f'])
-    recruitment = st.selectbox("Recruitment Channel", ["referred", "sourcing", "others"])
-    training = st.number_input("No of Training", 1, 10)
-    age = st.number_input("Age",10,60)
-    rating = st.number_input("Previous Year Rating",1,5)
-    service = st.number_input("Length of Service",1,37)
-    awards = st.radio("Awards Won", [0,1])
-    avg_training = st.number_input("Average Training Score",0,100)
+    age = st.number_input("Age",32,70)
+    education = st.selectbox('postgraduate', ["primaryschool", "Bachelor's", "Master's & above"])
+    currentsmoker = st.radio('Current Smoke', ['Yes','No'])
+    cigsperday = st.number_input("Age",32,70)
+    bpmeds = st.radio('BPM Eds', ['Yes','No'])
+    prevalentstroke = st.radio('Prevalent Stroke', ['Yes','No'])
+    prevalenthyp = st.radio('Prevalent Hypertensi', ['Yes','No'])
+    diabetes = st.radio('Diabetes', ['Yes','No'])
+    totchol = st.number_input("Total Chalorie",107,696)
+    sysBP = st.number_input("System BP",83.5,295)
+    diaBP = st.number_input("Daifragma BP",48,142.5)
+    bmi = st.number_input("BMI",15.54,56.8)
+    hearthrate = st.number_input("Hearth Rate",44,143)
+    glucose = st.number_input("Glucose",40,394)
+    hearhtstroke = st.radio('Hearth Stroke', ['Yes','No'])
 
     with st.expander("Your Selected Options"):
         result = {
-            'Department':department,
-            'Region':region,
-            'education':education,
             'gender':gender,
-            'recruitment_channel':recruitment,
-            'no_of_trainings':training,
             'age':age,
-            'previous_year_rating':rating,
-            'length_of_service':service,
-            'awards_won':awards,
-            'avg_training_score':avg_training,
+            'education':education,
+            'currentsmoker':currentsmoker,
+            'cigsperday':cigsperday,
+            'bpmeds':bpmeds,
+            'prevalentstroke':prevalentstroke,
+            'prevalenthyp':prevalenthyp,
+            'diabetes':diabetes,
+            'totchol':totchol,
+            'sysBP':sysBP,
+            'diaBP':diaBP,
+            'bmi':bmi,
+            'hearthrate':hearthrate,
+            'glucose':glucose,
+            'hearthstroke':hearhtstroke
         }
 
     # st.write(result)
@@ -126,9 +138,9 @@ def run_ml_app():
                                 'Not Promoted':round(pred_proba[0][0]*100,4)}
 
     if prediction == 1:
-        st.success("Congratulations, You are Promoted")
+        st.success("Besar kemungkinan Anda bakal terkena serangan jantung")
         
         st.write(pred_probability_score)
     else:
-        st.warning("Always give the contribution")
+        st.warning("Kecil kemungkinan Anda bakal terkena serangan jantung")
         st.write(pred_probability_score)
