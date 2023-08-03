@@ -58,7 +58,7 @@ def run_ml_app():
     st.subheader("Input Your Data")
     gender = st.radio('Gender', ['m','f'])
     age = st.number_input("Age",32,70)
-    education = st.selectbox('postgraduate', 'primaryschool', 'Bachelor's', 'Master's & above')
+    education = st.selectbox(["postgraduate","primaryschool", "Bachelor's", "Master's & above"])
     currentsmoker = st.radio('Current Smoke', ['Yes','No'])
     cigsperday = st.number_input("Ciggate Per Day",32,70)
     bpmeds = st.radio('BPM Eds', ['Yes','No'])
