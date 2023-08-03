@@ -60,7 +60,7 @@ def run_ml_app():
     age = st.number_input("Age",32,70)
     education = st.selectbox('postgraduate', ["primaryschool", "Bachelor's", "Master's & above"])
     currentsmoker = st.radio('Current Smoke', ['Yes','No'])
-    cigsperday = st.number_input("Age",32,70)
+    cigsperday = st.number_input("Ciggate Per Day",32,70)
     bpmeds = st.radio('BPM Eds', ['Yes','No'])
     prevalentstroke = st.radio('Prevalent Stroke', ['Yes','No'])
     prevalenthyp = st.radio('Prevalent Hypertensi', ['Yes','No'])
