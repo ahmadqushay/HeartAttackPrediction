@@ -6,18 +6,17 @@ from ml_app import run_ml_app
 
 html_temp = """
             <div style="background-color:#3872fb;padding:10px;border-radius:10px">
-		    <h1 style="color:white;text-align:center;">Employee Promotion Prediction App </h1>
-		    <h4 style="color:white;text-align:center;">HR Team </h4>
+		    <h1 style="color:white;text-align:center;">Hearth Attack Prediction</h1>
+		    <h4 style="color:white;text-align:center;">Analytic Alience</h4>
 		    </div>
             """
 
 desc_temp = """
-            ### Employee Promotion Prediction App
-            This app will be used by the HR team to predict whether the employee get a promotion or not
+            ### Hearth Attack Prediction
+            Aplikasi ini akan digunakan oleh rumah sakit dan puskesmas pada pasien yang memiliki riwayat dan resiko serangan jantung.
             #### Data Source
-            - https://raw.githubusercontent.com/densaiko/data_science_learning/main/dataset/Human%20Capital.csv
+            - https://www.kaggle.com/datasets/mirzahasnine/heart-disease-dataset
             #### App Content
-            - Exploratory Data Analysis
             - Machine Learning Section
             """
 
@@ -26,8 +25,9 @@ def main():
     stc.html(html_temp)
 
     menu = ["Home","Machine Learning"]
-    choice = st.sidebar.selectbox("Menu", menu)
-
+    choice = st.sidebar.selectbox("Menu", menu) 
+    
+    # Ngarahin select box mau kemana aja
     if choice == "Home":
         # st.subheader("Home")
         st.markdown(desc_temp, unsafe_allow_html=True)
@@ -35,6 +35,6 @@ def main():
         st.subheader("Machine Learning Section")
         run_ml_app()
     
-
+# Ketika eksekusi maka akan eksekusi fuction main()
 if __name__ == '__main__':
     main()
